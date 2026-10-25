@@ -59,3 +59,7 @@ out/
 *.pid.lock
 
 *.DS_Store
+
+# Local CI verification environment
+.venv-ci/
+.ruff_cache/

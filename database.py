@@ -23,7 +23,10 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_NAME = os.getenv("DB_NAME")
 
-DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}?sslmode=require"
+DB_SSLMODE = os.getenv("DB_SSLMODE", "disable")
+DATABASE_URL = (
+    f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}?sslmode={DB_SSLMODE}"
+)
 
 print(f"DB_USER: {DB_USER}")
 print(f"DB_HOST: {DB_HOST}")
