@@ -11,7 +11,7 @@ import redis
 import json
 
 from database import get_db, engine
-from models import Base, User, WishList, WishItem, WishItemStatus
+from models import Base, User, WishList, WishItem
 from schemas import (
     UserCreate, UserResponse, Token, WishListCreate, WishListResponse,
     WishItemCreate, WishItemResponse, WishItemStatusResponse
@@ -52,7 +52,10 @@ app.add_middleware(
 )
 
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
-redis_client = redis.from_url(REDIS_URL, decode_responses=True, ssl_cert_reqs="none")
+redis_client = redis.from_url(
+    REDIS_URL, decode_responses=True,
+    **({"ssl_cert_reqs": "none"} if REDIS_URL.startswith("rediss://") else {}),
+)
 # ssl_cert_reqs="none" - Disable SSL certificate verification for Upstash
 
 
@@ -277,7 +280,7 @@ async def health_check():
     try:
         redis_client.ping()
         redis_status = "healthy"
-    except:
+    except redis.exceptions.RedisError:
         redis_status = "unhealthy"
 
     return {
