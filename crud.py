@@ -1,6 +1,5 @@
-from typing import List, Type, Optional
+from typing import Type, Optional
 
-from sqlalchemy import func
 from sqlalchemy.orm import Session, joinedload
 from models import User, WishList, WishItem, WishItemStatus
 from schemas import UserCreate, WishListCreate, WishItemCreate

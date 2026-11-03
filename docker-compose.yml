@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:15
@@ -25,7 +23,11 @@ services:
       - postgres
       - redis
     environment:
-      DATABASE_URL: postgresql://username:password@postgres/wishlist_db
+      DB_USER: username
+      DB_PASSWORD: password
+      DB_HOST: postgres
+      DB_NAME: wishlist_db
+      REDIS_URL: redis://redis:6379/0
     volumes:
       - ./:/app
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
