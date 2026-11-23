@@ -6,7 +6,7 @@ __pycache__/
 *.db
 
 # Virtual environments
-.env
+.env*
 .venv
 venv/
 ENV/
@@ -63,3 +63,4 @@ README.md
 # Other
 *.sqlite
 *.sqlite3
+.venv-ci/
