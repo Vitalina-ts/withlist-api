@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
+from sqlalchemy.engine import URL, make_url
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
@@ -24,8 +25,15 @@ DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_NAME = os.getenv("DB_NAME")
 
 DB_SSLMODE = os.getenv("DB_SSLMODE", "disable")
-DATABASE_URL = (
-    f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}?sslmode={DB_SSLMODE}"
+db_address = make_url(f"postgresql://{DB_HOST}")
+DATABASE_URL = URL.create(
+    "postgresql",
+    username=DB_USER,
+    password=DB_PASSWORD,
+    host=db_address.host,
+    port=db_address.port,
+    database=DB_NAME,
+    query={"sslmode": DB_SSLMODE},
 )
 
 print(f"DB_USER: {DB_USER}")

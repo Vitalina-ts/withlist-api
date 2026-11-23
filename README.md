@@ -20,17 +20,7 @@ A modern REST API for creating and managing birthday wish lists, with the abilit
 
 ### Option 1: Docker (recommended)
 
-```bash
-# Clone the project
-git clone <repository-url>
-cd wishlist-api
-
-# Run with Docker
-make docker-up
-
-# Or
-docker-compose up -d
-```
+See the [Docker Compose guide](docs/containers.md) to launch the API, UI, PostgreSQL, and Redis.
 
 ### Option 2: Run locally
 
@@ -164,11 +154,6 @@ docker-down:
 # View logs
 logs:
 	docker-compose logs -f api
-
-# Clean Docker
-clean:
-	docker-compose down -v
-	docker system prune -f
 
 # Create migration
 migration:
